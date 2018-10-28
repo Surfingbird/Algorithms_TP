@@ -1,0 +1,3 @@
+/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/hw/modul_01/task_04/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/hw/modul_01/task_04/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/hw/modul_01/task_04/cmake-build-debug/CMakeFiles/task_04.dir
