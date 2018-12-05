@@ -9,6 +9,41 @@
 #include <iostream>
 #include <stack>
 
+template <typename T>
+void DeleteTree(T*& tree) {
+    std::stack<T*> stack;
+
+    if (tree == nullptr) return;
+
+    T* current = tree;
+
+    while (true) {
+        if (nullptr != current->Left) {
+            stack.push(current);
+            if (nullptr != current->Right) stack.push(current->Right);
+            current = current->Left;
+
+            continue;
+        } else if (nullptr != current->Right) {
+            stack.push(current);
+            current = current->Right;
+            continue;
+        }
+
+        if (nullptr != current->Parent) {
+            if (current->Parent->Left == current) current->Parent->Left = nullptr;
+            else current->Parent->Right = nullptr;
+        }
+        delete current;
+
+        if (0 == stack.size()) break;
+        else {
+            current = stack.top();
+            stack.pop();
+        }
+    }
+}
+
 class CTree {
 public:
     CTree(int value);
@@ -87,6 +122,7 @@ int main(int argc, const char * argv[]) {
     }
     
     ShowInOrder(root);
+    DeleteTree(root);
     
     return 0;
 }
