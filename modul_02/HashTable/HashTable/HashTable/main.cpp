@@ -15,20 +15,18 @@
 
 using namespace std;
 
-/// первый хеш возращает значение метода горнера
 int Hash_1(std::string str, int MLimit) {
-    int const ASimple = 3; /// выбор пал на простое 137
+    int const ASimple = 3; 
     int hash = 0;
 
     for(int i = 0; i < str.length(); ++i) {
-        hash = hash * ASimple + str[i]; /// убрал mod Mlim
+        hash = hash * ASimple + str[i]; 
     }
     return hash;
 }
 
-/// второй M - степень 2 и возвращает нечетное число
 int Hash_2(std::string str, int MLimit) {
-    int hash = (int)str.length() % MLimit; /// static_cast<int>
+    int hash = (int)str.length() % MLimit; 
     if (hash % 2 == 0 && hash > 0) --hash;
     else if (hash % 2 == 0) ++hash;
     return hash;
@@ -36,7 +34,7 @@ int Hash_2(std::string str, int MLimit) {
 
 class HashTable {
 public:
-    explicit HashTable(int size); /// неконвертируемая
+    explicit HashTable(int size);
     ~HashTable();
     HashTable(const HashTable&) = delete;
     HashTable& operator=(const HashTable&) = delete;
@@ -64,13 +62,12 @@ HashTable::~HashTable() {}
 
 void HashTable::Resize() {
 
-    std::vector<std::string> copy_table = table; /// какой конструктор вызывается?
+    std::vector<std::string> copy_table = table; 
     int cpoy_MLimit = MLimit;
 
-    /// обновляеся
     MLimit *= 2;
-    std::vector<std::string> new_table(MLimit); /// нужно понимать, что таблица то новая
-    table = new_table; /// нужно понимать, что таблица то новая
+    std::vector<std::string> new_table(MLimit);
+    table = new_table;
     elements = 0;
 
     for (int i = 0; i < cpoy_MLimit; ++i) {
@@ -109,7 +106,7 @@ bool HashTable::Has(const std::string &key) const {
         if (table[index] == key) return true;
         else if (table[index] == "") return false;
         else if (table[index] == "DEL" || table[index] != key) continue;
-        else assert(false); /// на всякий случай
+        else assert(false); 
     }
     
     return false;
@@ -118,9 +115,9 @@ bool HashTable::Has(const std::string &key) const {
 bool HashTable::Add(const std::string &key) {
     assert(key != "DEL");
 
-    if(Has(key)) return false; /// условие вхождения
+    if(Has(key)) return false; 
 
-    if (CritialFilling()) { /// ресайзимся
+    if (CritialFilling()) { 
         Resize();
     }
 
@@ -141,7 +138,7 @@ bool HashTable::Add(const std::string &key) {
 
 bool HashTable::Remove(const std::string &key) {
 
-    if(!Has(key)) return false; /// условие вхождения
+    if(!Has(key)) return false; 
 
     int hash_1 = Hash_1(key, MLimit);
     int hash_2 = Hash_2(key, MLimit);
@@ -160,7 +157,7 @@ bool HashTable::Remove(const std::string &key) {
 }
 
 int main() {
-    int start_size = 4;
+    int start_size = 8;
     
     HashTable table(start_size);
     char command = 0;
@@ -183,3 +180,4 @@ int main() {
     }
     return 0;
 }
+
