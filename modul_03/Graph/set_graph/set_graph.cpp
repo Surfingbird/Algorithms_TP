@@ -11,6 +11,8 @@ SetGraph::SetGraph(size_t vertices_count)
 {}
 
 SetGraph::SetGraph(const IGraph *graph) {
+    assert (nullptr != graph);
+
     for (int i = 0; i < graph->VerticesCount(); ++i) {
         std::unordered_multiset<int> multiset_in;
         std::unordered_multiset<int> multiset_out;

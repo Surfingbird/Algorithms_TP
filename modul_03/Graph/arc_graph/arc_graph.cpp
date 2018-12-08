@@ -18,6 +18,9 @@ void ArcGraph::AddEdge(int from, int to) {
 }
 
 ArcGraph::ArcGraph(const IGraph *graph) {
+    assert (nullptr != graph);
+
+
     for (int i = 0; i < graph->VerticesCount(); ++i) {
         std::vector<int> vertices;
 

@@ -9,6 +9,8 @@ ListGraph::ListGraph(size_t vertices_count)
 {}
 
 ListGraph::ListGraph(const IGraph *graph) {
+  assert (nullptr != graph);
+
   for (int i = 0; i < graph->VerticesCount(); ++i) {
     std::vector<int> vertices;
     graph->GetPrevVertices(i, vertices);

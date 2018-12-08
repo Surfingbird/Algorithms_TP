@@ -16,6 +16,7 @@ MatrixGraph::MatrixGraph(size_t vertices_count)
 }
 
 MatrixGraph::MatrixGraph(const IGraph *graph) {
+    assert (nullptr != graph);
 
     for (int i = 0; i < graph->VerticesCount(); ++i) {
         for (int j = 0; j < graph->VerticesCount(); ++j) {
