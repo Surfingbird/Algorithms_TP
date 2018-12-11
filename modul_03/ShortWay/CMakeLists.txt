@@ -42,19 +42,26 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-add_executable(ShortWay main.cpp)
+#add_executable(ShortWay main.cpp)
 
-add_executable(SetShortWay main_with_sets.cpp)
+#add_executable(SetShortWay main_with_sets.cpp)
+
+add_executable(MatrixShortWay
+        MatrixManyGraph/main_matrix.cpp
+        )
 
 add_executable(tests
         test/main_test.cpp
-        MatrixGraph/ShortWayGraph.cpp
-        MatrixGraph/ShortWayGraph.h
-        search_way.h
-        GraphPoint.h
+#        MatrixGraph/ShortWayGraph.cpp
+#        MatrixGraph/ShortWayGraph.h
+#        search_way.h
+#        GraphPoint.h
+#
+#        SetGraph/ShortWaySetG.cpp
+#        SetGraph/ShortWaySetG.h
 
-        SetGraph/ShortWaySetG.cpp
-        SetGraph/ShortWaySetG.h
+        MatrixManyGraph/MatrixManyGraph.cpp
+        MatrixManyGraph/MatrixManyGraph.h
         )
 
 target_link_libraries(tests gtest_main)
