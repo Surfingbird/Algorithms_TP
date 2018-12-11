@@ -1,8 +1,13 @@
+//
+// Created by Андрей on 11.12.18.
+//
+
 #include <iostream>
 #include <iostream>
 #include <vector>
 #include <assert.h>
 #include <queue>
+#include "unordered_set"
 
 class GraphPoint {
 public:
@@ -14,26 +19,29 @@ public:
     size_t point_number;
 };
 
-class ShortWayGraph {
+class ShortWaySetG {
 public:
-    ShortWayGraph() = delete;
-    explicit ShortWayGraph(size_t point_count);
-    ShortWayGraph(const ShortWayGraph&) = delete;
-    ShortWayGraph& operator=(const ShortWayGraph&) = delete;
-    ~ShortWayGraph() = default;
+    ShortWaySetG() = delete;
+    explicit ShortWaySetG(size_t point_count);
+    ShortWaySetG(const ShortWaySetG&) = delete;
+    ShortWaySetG& operator=(const ShortWaySetG&) = delete;
+    ~ShortWaySetG() = default;
 
-    friend std::ostream& operator << (std::ostream &os, ShortWayGraph &shortWayGraph);
+//    friend std::ostream& operator << (std::ostream &os, ShortWayGraph &shortWayGraph);
 
     void AddEdge(size_t from, size_t to);
     void GetNextVertices(size_t vertex, std::vector<GraphPoint *> &vertices) const;
     void GetPoint(size_t vertex, GraphPoint* &current);
 
 private:
-    std::vector<std::vector<GraphPoint*>> matrix;
-    std::vector<GraphPoint> points;
+    std::vector<std::unordered_multiset<GraphPoint*>> out_edges_;
+    ///std::vector<std::unordered_multiset<GraphPoint*>> in_edges_;
+    std::vector<GraphPoint> vertices_;
+
 };
 
-size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
+template <typename T>
+size_t search_way(size_t search_from, size_t search_to, T &graph) {
     std::queue<GraphPoint*> queue;
     std::queue<GraphPoint*> layer_queue;
 
@@ -72,7 +80,6 @@ size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
 
         if (0 == result) {
             current->colour = "black";
-            current->length = step; /// растояние от начала к узлу
 
             std::vector<GraphPoint*> out_edges;
             graph.GetNextVertices(current->point_number, out_edges); /// вот это мне не понравилось
@@ -93,67 +100,55 @@ size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
     return result;
 }
 
-ShortWayGraph::ShortWayGraph(size_t point_count)
-{
+ShortWaySetG::ShortWaySetG(size_t point_count) {
     for (size_t i = 0; i < point_count; ++i) {
-        points.push_back(GraphPoint(i));
+        std::unordered_multiset<GraphPoint*> multiset;
+        out_edges_.push_back(multiset); /// как бы он был не один
+        //in_edges_.push_back(multiset);
 
-        std::vector<GraphPoint*> vector;
-
-        for (size_t j = 0; j < point_count; ++j) {
-            vector.push_back(nullptr);
-        }
-        matrix.push_back(vector);
+        vertices_.push_back(GraphPoint(i));
     }
 }
 
-void ShortWayGraph::GetPoint(size_t vertex, GraphPoint* &current)  {
-    assert(vertex >= 0 && vertex < points.size());
-
-    current = &points[vertex];
-    return;
-}
-
-void ShortWayGraph::AddEdge(size_t from, size_t to) {
-    assert(from >= 0 && from < points.size());
-    assert(to >= 0 && to < points.size());
-    assert(to != from); /// забавы ради
-
-    matrix[from][to] = &points[to];
-}
-
-void ShortWayGraph::GetNextVertices(size_t vertex, std::vector<GraphPoint *> &vertices) const {
-    assert(vertex >= 0 && vertex < points.size());
-
-    for (auto i = matrix[vertex].begin(); i != matrix[vertex].end(); ++i) {
-        if (nullptr != *i) vertices.push_back(*i);
+void ShortWaySetG::GetNextVertices(size_t vertex, std::vector<GraphPoint *> &vertices) const {
+    for (auto i = out_edges_[vertex].begin(); i != out_edges_[vertex].end(); ++i) {
+        vertices.push_back(*i);
     }
 }
 
-std::ostream& operator << (std::ostream &os, ShortWayGraph &shortWayGraph) {
-    for (auto i = shortWayGraph.matrix.begin(); i != shortWayGraph.matrix.end(); ++i) {
-        for (auto j = (*i).begin(); j != (*i).end(); ++j) {
-            if (nullptr == *j) os << "NONE_ ";
-            else os << (*j)->colour << " ";
-        }
-        os << "\n";
-    }
+void ShortWaySetG::GetPoint(size_t vertex, GraphPoint *&current) {
+    assert(vertex >= 0 && vertex < vertices_.size());
+
+    current = &vertices_[vertex];
 }
 
+void ShortWaySetG::AddEdge(size_t from, size_t to) {
+    assert(from >= 0 && from < vertices_.size());
+    assert(to >= 0 && to < vertices_.size());
 
+    GraphPoint *point = nullptr;
+
+    GetPoint(to, point);
+    //in_edges_[from].insert(point);
+    out_edges_[from].insert(point);
+
+    GetPoint(from, point);
+    ///in_edges_[to].insert(point);
+    out_edges_[to].insert(point);
+}
 
 int main() {
     size_t count_points = 0;
     size_t count_edge = 0;
 
     std::cin >> count_points >> count_edge;
-    ShortWayGraph shortWayGraph(count_points);
+    ShortWaySetG shortWaySetG(count_points);
 
     for (size_t i = 0; i < count_edge; ++i) {
         size_t from = 0;     /// не красиво, согласен!
         size_t to = 0;       /// не красиво, согласен!
         std::cin >> from >> to;
-        shortWayGraph.AddEdge(from, to);
+        shortWaySetG.AddEdge(from, to);
     }
 
     size_t search_from = 0;
@@ -161,7 +156,7 @@ int main() {
 
     std::cin >> search_from >> search_to;
 
-    size_t result = search_way(search_from, search_to, shortWayGraph);
+    size_t result = search_way(search_from, search_to, shortWaySetG);
 
     std::cout << result;
     return 0;

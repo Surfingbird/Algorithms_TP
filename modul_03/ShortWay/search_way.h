@@ -5,11 +5,13 @@
 #ifndef SHORTWAY_SEARCH_WAY_H
 #define SHORTWAY_SEARCH_WAY_H
 
-#include "ShortWayGraph.h"
 #include "queue"
+#include "GraphPoint.h"
 
-size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
+template <typename T>
+size_t search_way(size_t search_from, size_t search_to, T &graph) {
     std::queue<GraphPoint*> queue;
+    std::queue<GraphPoint*> layer_queue;
 
     GraphPoint* current = nullptr;
     graph.GetPoint(search_from, current);
@@ -29,6 +31,13 @@ size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
         }
         if (nullptr == current) {
             ++step;
+
+            while (!layer_queue.empty()) {
+                GraphPoint* layers_point = layer_queue.front();
+                layers_point->colour = "grey";
+                layer_queue.pop();
+            }
+
             continue;
         }
 
@@ -49,16 +58,16 @@ size_t search_way(size_t search_from, size_t search_to, ShortWayGraph &graph) {
                 if ("black" == (*i)->colour || "grey" == (*i)->colour) continue; /// уже посещенная вершина
 //                if (current->length == (*i)->length) continue;
 
-                if ((*i)->length == 0 || (*i)->length == step + 1) {
-                    (*i)->length = step + 1;
+//                if ((*i)->length == 0 || (*i)->length == step + 1) {
+//                    (*i)->length = step + 1;
                     queue.push(*i);
-                }
+                    layer_queue.push(*i);
             }
         }
     }
 
-
     return result;
 }
+
 
 #endif //SHORTWAY_SEARCH_WAY_H

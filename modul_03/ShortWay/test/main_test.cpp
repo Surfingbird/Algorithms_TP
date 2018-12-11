@@ -3,29 +3,161 @@
 //
 
 #include <gtest/gtest.h>
-#include "../ShortWayGraph.h"
+#include "../MatrixGraph/ShortWayGraph.h"
 #include "../search_way.h"
+#include "../SetGraph/ShortWaySetG.h"
 
-TEST(serach_way, serach_way_01) {
-ShortWayGraph graph(6);
+//TEST(serach_way_matrix, serach_way_01) {
+//ShortWayGraph graph(6);
+//
+//graph.AddEdge(0, 1);
+//graph.AddEdge(0, 2);
+//graph.AddEdge(0, 3);
+//graph.AddEdge(1, 4);
+//graph.AddEdge(2, 4);
+//graph.AddEdge(3, 4);
+//graph.AddEdge(4, 5);
+//
+////std::cout << graph;
+//size_t expected = 3;
+//size_t real = search_way(0, 5, graph);
+//
+//EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_02) {
+//    ShortWayGraph graph(4);
+//
+//    graph.AddEdge(0, 1);
+//    graph.AddEdge(0, 2);
+//    graph.AddEdge(1, 2);
+//    graph.AddEdge(1, 3);
+//    graph.AddEdge(2, 3);
+//
+//    size_t expected = 2;
+//    size_t real = 0;
+//
+//    real = search_way(0, 3, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_03) {
+//    ShortWayGraph graph(2);
+//
+//    graph.AddEdge(0, 1);
+//
+//    size_t expected = 1;
+//    size_t real = 0;
+//
+//    real = search_way(0, 1, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_04) {
+//    ShortWayGraph graph(4);
+//
+//    graph.AddEdge(0, 1);
+//    graph.AddEdge(1, 2);
+//    graph.AddEdge(2, 3);
+//
+//    size_t expected = 1;
+//    size_t real = 0;
+//
+//    real = search_way(0, 3, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_05) {
+//    ShortWayGraph graph(4);
+//
+//    graph.AddEdge(0, 1);
+//    graph.AddEdge(0, 2);
+//    graph.AddEdge(1, 2);
+//    graph.AddEdge(1, 3);
+//    graph.AddEdge(2, 3);
+//    graph.AddEdge(0, 3);
+//
+//    size_t expected = 1;
+//    size_t real = 0;
+//
+//    real = search_way(0, 3, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_06) {
+//    ShortWayGraph graph(5);
+//
+//    graph.AddEdge(0, 1);
+//    graph.AddEdge(0, 2);
+//    graph.AddEdge(1, 2);
+//    graph.AddEdge(1, 3);
+//    graph.AddEdge(2, 3);
+//    graph.AddEdge(0, 3);
+//    graph.AddEdge(3, 4);
+//
+//    size_t expected = 1;
+//    size_t real = 0;
+//
+//    real = search_way(0, 4, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
+//
+//TEST(serach_way_matrix, serach_way_07) {
+//    ShortWayGraph graph(8);
+//
+//    graph.AddEdge(0, 1);
+//    graph.AddEdge(0, 2);
+//
+//    graph.AddEdge(1, 2);
+//    graph.AddEdge(1, 3);
+//    graph.AddEdge(1, 4);
+//
+//    graph.AddEdge(2, 5);
+//    graph.AddEdge(2, 6);
+//
+//    graph.AddEdge(3, 7);
+//    graph.AddEdge(3, 4);
+//
+//    graph.AddEdge(4, 7);
+//    graph.AddEdge(4, 5);
+//
+//    graph.AddEdge(5, 6);
+//
+//
+//    size_t expected = 2;
+//    size_t real = 0;
+//
+//    real = search_way(0, 7, graph);
+//
+//    EXPECT_EQ(expected, real);
+//
+//}
 
-graph.AddEdge(0, 1);
-graph.AddEdge(0, 2);
-graph.AddEdge(0, 3);
-graph.AddEdge(1, 4);
-graph.AddEdge(2, 4);
-graph.AddEdge(3, 4);
-graph.AddEdge(4, 5);
+TEST(serach_way_set, serach_way_01) {
+    ShortWaySetG graph(6);
 
-//std::cout << graph;
-size_t expected = 3;
-size_t real = search_way(0, 5, graph);
+    graph.AddEdge(0, 1);
+    graph.AddEdge(0, 2);
+    graph.AddEdge(0, 3);
+    graph.AddEdge(1, 4);
+    graph.AddEdge(2, 4);
+    graph.AddEdge(3, 4);
+    graph.AddEdge(4, 5);
 
-EXPECT_EQ(expected, real);
+    //std::cout << graph;
+    size_t expected = 3;
+    size_t real = search_way(0, 5, graph);
+
+    EXPECT_EQ(expected, real);
 }
 
-TEST(serach_way, serach_way_02) {
-    ShortWayGraph graph(4);
+TEST(serach_way_set, serach_way_02) {
+    ShortWaySetG graph(4);
 
     graph.AddEdge(0, 1);
     graph.AddEdge(0, 2);
@@ -41,8 +173,8 @@ TEST(serach_way, serach_way_02) {
     EXPECT_EQ(expected, real);
 }
 
-TEST(serach_way, serach_way_03) {
-    ShortWayGraph graph(2);
+TEST(serach_way_set, serach_way_03) {
+    ShortWaySetG graph(2);
 
     graph.AddEdge(0, 1);
 
@@ -54,8 +186,8 @@ TEST(serach_way, serach_way_03) {
     EXPECT_EQ(expected, real);
 }
 
-TEST(serach_way, serach_way_04) {
-    ShortWayGraph graph(4);
+TEST(serach_way_set, serach_way_04) {
+    ShortWaySetG graph(4);
 
     graph.AddEdge(0, 1);
     graph.AddEdge(1, 2);
@@ -69,8 +201,8 @@ TEST(serach_way, serach_way_04) {
     EXPECT_EQ(expected, real);
 }
 
-TEST(serach_way, serach_way_05) {
-    ShortWayGraph graph(4);
+TEST(serach_way_set, serach_way_05) {
+    ShortWaySetG graph(4);
 
     graph.AddEdge(0, 1);
     graph.AddEdge(0, 2);
@@ -87,8 +219,8 @@ TEST(serach_way, serach_way_05) {
     EXPECT_EQ(expected, real);
 }
 
-TEST(serach_way, serach_way_06) {
-    ShortWayGraph graph(5);
+TEST(serach_way_set, serach_way_06) {
+    ShortWaySetG graph(5);
 
     graph.AddEdge(0, 1);
     graph.AddEdge(0, 2);
@@ -102,6 +234,51 @@ TEST(serach_way, serach_way_06) {
     size_t real = 0;
 
     real = search_way(0, 4, graph);
+
+    EXPECT_EQ(expected, real);
+}
+
+TEST(serach_way_set, serach_way_07) {
+    ShortWaySetG graph(8);
+
+    graph.AddEdge(0, 1);
+    graph.AddEdge(0, 2);
+
+    graph.AddEdge(1, 2);
+    graph.AddEdge(1, 3);
+    graph.AddEdge(1, 4);
+
+    graph.AddEdge(2, 5);
+    graph.AddEdge(2, 6);
+
+    graph.AddEdge(3, 7);
+    graph.AddEdge(3, 4);
+
+    graph.AddEdge(4, 7);
+    graph.AddEdge(4, 5);
+
+    graph.AddEdge(5, 6);
+
+
+    size_t expected = 2;
+    size_t real = 0;
+
+    real = search_way(0, 7, graph);
+
+    EXPECT_EQ(expected, real);
+
+}
+
+TEST(serach_way_set, serach_way_08) {
+    ShortWaySetG graph(2);
+
+    graph.AddEdge(0, 1);
+    graph.AddEdge(0, 1);
+
+    size_t expected = 2;
+    size_t real = 0;
+
+    real = search_way(0, 1, graph);
 
     EXPECT_EQ(expected, real);
 }

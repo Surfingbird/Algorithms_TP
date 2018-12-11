@@ -7,17 +7,7 @@
 
 #include <iostream>
 #include <vector>
-
-class GraphPoint {
-public:
-    GraphPoint() = delete;
-    explicit GraphPoint(size_t number) : point_number(number) {}
-    ~GraphPoint() = default;
-
-    std::string colour = "white";
-    size_t length = 0;
-    size_t point_number;
-};
+#include "../GraphPoint.h"
 
 class ShortWayGraph {
 public:
