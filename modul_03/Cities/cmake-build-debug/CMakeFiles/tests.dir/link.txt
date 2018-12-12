@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -lncurses -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/tests.dir/main_tests.cpp.o CMakeFiles/tests.dir/Graph.cpp.o  -o ../bin/tests lib/libgtest_maind.a lib/libgtestd.a 
