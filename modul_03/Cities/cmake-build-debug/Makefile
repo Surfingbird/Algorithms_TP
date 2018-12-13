@@ -241,7 +241,6 @@ Graph.o: Graph.cpp.o
 # target to build an object file
 Graph.cpp.o:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/Graph.cpp.o
-	$(MAKE) -f CMakeFiles/Cities.dir/build.make CMakeFiles/Cities.dir/Graph.cpp.o
 .PHONY : Graph.cpp.o
 
 Graph.i: Graph.cpp.i
@@ -251,7 +250,6 @@ Graph.i: Graph.cpp.i
 # target to preprocess a source file
 Graph.cpp.i:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/Graph.cpp.i
-	$(MAKE) -f CMakeFiles/Cities.dir/build.make CMakeFiles/Cities.dir/Graph.cpp.i
 .PHONY : Graph.cpp.i
 
 Graph.s: Graph.cpp.s
@@ -261,7 +259,6 @@ Graph.s: Graph.cpp.s
 # target to generate assembly for a file
 Graph.cpp.s:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/Graph.cpp.s
-	$(MAKE) -f CMakeFiles/Cities.dir/build.make CMakeFiles/Cities.dir/Graph.cpp.s
 .PHONY : Graph.cpp.s
 
 main.o: main.cpp.o

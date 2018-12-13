@@ -1,1 +1,1 @@
-/Library/Developer/CommandLineTools/usr/bin/c++  -lncurses -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/Cities.dir/main.cpp.o CMakeFiles/Cities.dir/Graph.cpp.o  -o ../bin/Cities 
+/Library/Developer/CommandLineTools/usr/bin/c++  -lncurses -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/Cities.dir/main.cpp.o  -o ../bin/Cities 

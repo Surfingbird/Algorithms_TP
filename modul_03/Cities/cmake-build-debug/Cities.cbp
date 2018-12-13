@@ -372,11 +372,9 @@
 		</Build>
 		<Unit filename="/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/Algorithms_TP/modul_03/Cities/Graph.cpp">
 			<Option target="tests"/>
-			<Option target="Cities"/>
 		</Unit>
 		<Unit filename="/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/Algorithms_TP/modul_03/Cities/Graph.h">
 			<Option target="tests"/>
-			<Option target="Cities"/>
 		</Unit>
 		<Unit filename="/Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/Algorithms_TP/modul_03/Cities/cmake-build-debug/googletest-src/googlemock/src/gmock-all.cc">
 			<Option target="gmock"/>

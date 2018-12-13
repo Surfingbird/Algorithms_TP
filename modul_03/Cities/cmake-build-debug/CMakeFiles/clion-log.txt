@@ -3,7 +3,11 @@
 -- Generating done
 -- Build files have been written to: /Users/andrey/TECHNOPARK_SYSARC/SEM_01/Algol/Algorithms_TP/modul_03/Cities/cmake-build-debug/googletest-download
 [ 11%] Performing update step for 'googletest'
-Current branch master is up to date.
+From https://github.com/google/googletest
+   b545089..6ef5913  master                -> origin/master
+ * [new branch]      gennadiycivil-patch-1 -> origin/gennadiycivil-patch-1
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to origin/master.
 [ 22%] No configure step for 'googletest'
 [ 33%] No build step for 'googletest'
 [ 44%] No install step for 'googletest'
