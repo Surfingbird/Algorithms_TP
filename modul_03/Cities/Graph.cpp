@@ -6,37 +6,36 @@
 #include <cassert>
 #include <vector>
 #include <queue>
-
-bool compare(Point left, Point right) {
-    if (left.distance == -1 && right.distance == -1) return true;
-    else if (left.distance == -1) return true;
-    else if (right.distance == -1) return false;
-    else if (left.distance > right.distance) return true;
-    else return false;
-}
+#include <iostream>
 
 Graph::Graph(int point_count) {
+    std::vector<std::vector<int>> vector_m(point_count);
+    matrix_ = vector_m;
+
+    std::vector<Point> vector_p(point_count);
+    vertices_ = vector_p;
+
     for (int i = 0; i < point_count; ++i) {
-        std::vector<int> vector;
+        std::vector<int> vector(point_count);
 
         for (int j = 0; j < point_count; ++j) {
-            vector.push_back(-1);
+            vector[j] = -1;
         }
-        matrix_.push_back(vector);
+        matrix_[i] = vector;
 
         Point point;
         point.number = i;
 
-        vertices_.push_back(point);
+        vertices_[i] = point;
     }
 }
 
-void Graph::GetNextVertices(int vertex, std::vector<Point> &vertices)
+void Graph::GetNextVertices(int vertex, std::vector<Point*> &vertices)
 {
-    assert(vertex >= 0 && vertex < matrix_.size());
+    assert(vertex >= 0 && vertex < vertices_.size());
 
     for (int i = 0; i < matrix_.size(); ++i) {
-        if (matrix_[vertex][i] != -1 && !vertices_[i].visited) vertices.push_back(vertices_[i]);
+        if (matrix_[vertex][i] != -1 && !vertices_[i].visited) vertices.push_back(&vertices_[i]);
     }
 }
 
@@ -49,23 +48,15 @@ void Graph::AddEdge(int from, int to, int distance) {
     matrix_[to][from] = distance;
 }
 
-int Graph::GetDistance(int from, int to) {
-    assert(from >= 0 && from < matrix_.size());
-    assert(to >= 0 && to < matrix_.size());
-    assert(matrix_[from][to] != -1);
-
-    return matrix_[from][to];
-}
-
-using my_type = Point;
-using my_container = std::vector<Point>;
+using my_type = Point*;
+using my_container = std::vector<Point*>;
 
 struct LessThanByPoint {
-    bool operator()(const Point& left, const Point& right) {
-        if (left.distance == -1 && right.distance == -1) return true;
-        else if (left.distance == -1) return true;
-        else if (right.distance == -1) return false;
-        else if (left.distance > right.distance) return true;
+    bool operator()(const Point* left, const Point* right) {
+        if (left->distance == -1 && right->distance == -1) return true;
+        else if (left->distance == -1) return true;
+        else if (right->distance == -1) return false;
+        else if (left->distance > right->distance) return true;
         else return false;
     }
 };
@@ -83,32 +74,40 @@ int get_distance(int from, int to, Graph graph) {
 
     /// здесь костыль на построение очереди с приоритетом
     for (int i = 0; i < graph.vertices_.size(); ++i) {
-        queue.push(graph.vertices_[i]);
+        queue.push(&graph.vertices_[i]);
     }
-
-    /// думаю, что все таки точки из вектора и точки и точки из очереди - не одно и то же!!!
 
     int result = 0;
 
     ///пошел сам алгоритм (нужно добавить востановление очереди с приоритетом и переписать на указатели на элементы вектора)
     while (!queue.empty()) {
-        Point current = queue.top();
-        current.visited = true;
+        Point* current = queue.top();
+        current->visited = true;
         queue.pop();
 
-        std::vector<Point> out_vert;
-        graph.GetNextVertices(current.number, out_vert);
+        std::vector<Point*> out_vert;
+        graph.GetNextVertices(current->number, out_vert); //// тут модно выйти за пределы
 
-        for (auto i = out_vert.begin(); i != out_vert.end(); ++i) {
-            int new_dist = current.distance + graph.matrix_[current.distance][(*i).number]; /// аккуратней
+        for (int i = 0; i < out_vert.size(); ++i) {
+            int new_dist = current->distance + graph.matrix_[current->number][out_vert[i]->number]; /// аккуратней
 
-            if ((*i).distance == -1) (*i).distance = new_dist;
-            if ((*i).number == to) result = (*i).distance;
+            auto p = i;
+
+            if (out_vert[i]->distance == -1 || new_dist < out_vert[i]->distance) out_vert[i]->distance = new_dist;
+            std::cout << "\n";
         }
 
-        if (result) break;
+        std::priority_queue<my_type, my_container, LessThanByPoint> queue_new;
+
+        while (!queue.empty()) {
+            queue_new.push(queue.top());
+            queue.pop();
+        }
+
+        queue = queue_new;
+
     }
-    return result;
+    return graph.vertices_[to].distance;
 }
 
 

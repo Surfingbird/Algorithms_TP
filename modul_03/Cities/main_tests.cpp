@@ -77,40 +77,40 @@ TEST(Graph, simple_02) {
 //    EXPECT_EQ(real, expected);
 //}
 
-TEST(Graph, simple_06) {
-    Point p1; p1.distance = 3;
-    Point p2; p2.distance = 2;
-
-    EXPECT_TRUE(compare(p1, p2));
-}
-
-TEST(Graph, simple_07) {
-    Point p1; p1.distance = 3;
-    Point p2;
-
-    EXPECT_FALSE(compare(p1, p2));
-}
-
-TEST(Graph, simple_08) {
-    Point p1;
-    Point p2;
-
-    EXPECT_TRUE(compare(p1, p2));
-}
-
-TEST(Graph, simple_09) {
-    Point p1;
-    Point p2; p2.distance = 3;
-
-    EXPECT_TRUE(compare(p1, p2));
-}
-
-TEST(Graph, simple_10) {
-    Point p1; p1.distance = 2;
-    Point p2; p2.distance = 3;
-
-    EXPECT_FALSE(compare(p1, p2));
-}
+//TEST(Graph, simple_06) {
+//    Point p1; p1.distance = 3;
+//    Point p2; p2.distance = 2;
+//
+//    EXPECT_TRUE(compare(p1, p2));
+//}
+//
+//TEST(Graph, simple_07) {
+//    Point p1; p1.distance = 3;
+//    Point p2;
+//
+//    EXPECT_FALSE(compare(p1, p2));
+//}
+//
+//TEST(Graph, simple_08) {
+//    Point p1;
+//    Point p2;
+//
+//    EXPECT_TRUE(compare(p1, p2));
+//}
+//
+//TEST(Graph, simple_09) {
+//    Point p1;
+//    Point p2; p2.distance = 3;
+//
+//    EXPECT_TRUE(compare(p1, p2));
+//}
+//
+//TEST(Graph, simple_10) {
+//    Point p1; p1.distance = 2;
+//    Point p2; p2.distance = 3;
+//
+//    EXPECT_FALSE(compare(p1, p2));
+//}
 
 using my_type = Point;
 using my_container = std::vector<Point>;
@@ -167,16 +167,48 @@ TEST(Graph, simple_11) {
 //    EXPECT_EQ(expected, real);
 //}
 
-TEST(Graph, simple_13) {
-    Graph graph(3);
-    graph.AddEdge(0, 1, 10);
-    graph.AddEdge(1, 2, 10);
+//TEST(Graph, simple_13) {
+//    Graph graph(3);
+//    graph.AddEdge(0, 1, 10);
+//    graph.AddEdge(1, 2, 10);
+//
+//    int expected = 20;
+//    int real = get_distance(0, 2, graph);
+//
+//    EXPECT_EQ(expected, real);
+//}
 
-    int expected = 20;
+TEST(Graph, simple_14) {
+    Graph graph(6);
+
+    graph.AddEdge(0, 3, 1); ///
+    graph.AddEdge(0, 4, 2); ///
+    graph.AddEdge(1, 2, 7); ///
+    graph.AddEdge(1, 3, 2); ///
+    graph.AddEdge(1, 4, 3); ///
+    graph.AddEdge(1, 5, 3); ///
+    graph.AddEdge(2, 5, 3); ///
+    graph.AddEdge(3, 4, 4); ///
+    graph.AddEdge(3, 5, 6); ///
+
+    int expected = 9;
     int real = get_distance(0, 2, graph);
 
     EXPECT_EQ(expected, real);
 }
+
+TEST(Graph, simple_15) {
+    Graph graph(2);
+
+    graph.AddEdge(0, 1, 1);
+    graph.AddEdge(0, 1, 1);
+
+    int expected = 1;
+    int real = get_distance(0, 1, graph);
+
+    EXPECT_EQ(expected, real);
+}
+
 
 
 

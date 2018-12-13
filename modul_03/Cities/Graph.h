@@ -13,8 +13,6 @@ struct Point {
     bool visited = false;
 };
 
-bool compare(Point left, Point right);
-
 class Graph {
 public:
     Graph() = delete;
@@ -27,7 +25,7 @@ public:
 
     int GetDistance(int from, int to);
     void AddEdge(int from, int to, int distance);
-    void GetNextVertices(int vertex, std::vector<Point> &vertices) ;
+    void GetNextVertices(int vertex, std::vector<Point*> &vertices) ;
 
 public:
     std::vector<std::vector<int>> matrix_;

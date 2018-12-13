@@ -44,8 +44,6 @@ endif()
 
 
 add_executable(Cities main.cpp
-        Graph.cpp
-        Graph.h
         )
 
 add_executable(tests
